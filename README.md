@@ -14,6 +14,7 @@ The repository has one folder per app:
 | Folder | App | What it shows |
 |---|---|---|
 | [`calculator/`](calculator/) | Calculator | Every element kind: accessibility, AppleScript, screenshots, and visible text |
+| [`textedit/`](textedit/) | TextEdit | Sheets and floating panels: the Save sheet inside its window, and the Fonts panel through `window=` |
 
 ## Before you begin
 
@@ -42,7 +43,7 @@ After you grant a permission, quit and reopen the app you run the tests from. ma
    uv run pytest calculator
    ```
 
-The suite launches the app, runs the tests, and quits the app. If the app is already open, the suite uses that window and quits the app at the end, so save your work in it first.
+The suite launches the app, runs the tests, and quits the app. If the app is already open, the suite uses it and quits it at the end, so save your work in it first.
 
 ## How an app folder is organized
 
@@ -52,7 +53,8 @@ Each app folder follows the same layout:
 calculator/
   __init__.py              # Makes the folder a package, so app folders don't clash
   screens.py               # Screen classes: every element the tests use
-  screens/calculator/      # Screenshots for image() elements, one folder per Screen class
+  screens/calculator/      # Screenshots for image() elements, one folder per Screen class.
+                           # Only folders with image() elements have one.
   conftest.py              # Launches the app and resets it between tests
   test_screens.py          # Checks that every element resolves, without clicking
   test_*.py                # One file per element kind, plus an end-to-end test
