@@ -8,8 +8,14 @@ from macuitest.lib.elements.locators import image
 from macuitest.lib.elements.locators import text
 from macuitest.lib.elements.native_element import Button
 
-# System Events names every key `missing value`, so AppleScript matches the description.
 KEYPAD = "group 1 of group 1 of splitter group 1 of group 1 of window 1"
+
+
+def key(identifier: str) -> str:
+    """Return the AppleScript locator of the keypad key with `identifier`."""
+    # System Events reads these SwiftUI keys' name as missing value, their description as
+    # "button", and can't read AXDescription at all. AXIdentifier is the attribute it can match.
+    return f'(first button whose value of attribute "AXIdentifier" is "{identifier}") of {KEYPAD}'
 
 
 class Calculator(Screen, app="Calculator"):
@@ -48,16 +54,10 @@ class Calculator(Screen, app="Calculator"):
     equals_image = image("equals")
 
     # The same keys through System Events.
-    seven_as = applescript(
-        f'(first button whose description is "7") of {KEYPAD}', kind=ScriptButton
-    )
-    six_as = applescript(f'(first button whose description is "6") of {KEYPAD}', kind=ScriptButton)
-    multiply_as = applescript(
-        f'(first button whose description is "Multiply") of {KEYPAD}', kind=ScriptButton
-    )
-    equals_as = applescript(
-        f'(first button whose description is "Equals") of {KEYPAD}', kind=ScriptButton
-    )
+    seven_as = applescript(key("Seven"), kind=ScriptButton)
+    six_as = applescript(key("Six"), kind=ScriptButton)
+    multiply_as = applescript(key("Multiply"), kind=ScriptButton)
+    equals_as = applescript(key("Equals"), kind=ScriptButton)
 
     # Vision reads "AC" but not single characters, so only multi-letter labels use text().
     all_clear_text = text("AC", within=keypad)
