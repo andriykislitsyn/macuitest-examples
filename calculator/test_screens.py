@@ -4,9 +4,9 @@ Run this first after a macOS update.
 """
 
 import pytest
-from macuitest.lib.elements.locators.factories import AppleScriptLocator
-from macuitest.lib.elements.locators.factories import AXLocator
-from macuitest.lib.elements.locators.factories import ImageLocator
+from macuitest.lib.elements.locators import AppleScriptLocator
+from macuitest.lib.elements.locators import AXLocator
+from macuitest.lib.elements.locators import ImageLocator
 from macuitest.lib.elements.ui.monitor import monitor
 
 from calculator.screens import Calculator

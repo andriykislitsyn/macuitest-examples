@@ -3,7 +3,7 @@
 import pytest
 from macuitest.lib.apps.application import Application
 from macuitest.lib.core import wait_condition
-from macuitest.lib.elements.locators.accessibility import standard_window_frame
+from macuitest.lib.elements.locators import standard_window_frame
 
 from calculator.screens import Calculator
 from calculator.screens import display_value
