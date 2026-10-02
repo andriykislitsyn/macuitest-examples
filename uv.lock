@@ -23,7 +23,7 @@ wheels = [
 [[package]]
 name = "macuitest"
 version = "0.8.0"
-source = { git = "https://github.com/andriykislitsyn/macuitest#99c3e1a4711a547ffdb2139f05ba566dddd44b20" }
+source = { git = "https://github.com/andriykislitsyn/macuitest#7fcee06883790c34726ab8f315fa7ded653dfc13" }
 dependencies = [
     { name = "opencv-python" },
     { name = "pyobjc-framework-applicationservices" },
