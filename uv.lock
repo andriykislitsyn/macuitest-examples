@@ -23,13 +23,17 @@ wheels = [
 [[package]]
 name = "macuitest"
 version = "0.8.0"
-source = { git = "https://github.com/andriykislitsyn/macuitest#7fcee06883790c34726ab8f315fa7ded653dfc13" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "opencv-python" },
     { name = "pyobjc-framework-applicationservices" },
     { name = "pyobjc-framework-cocoa" },
     { name = "pyobjc-framework-quartz" },
     { name = "pyobjc-framework-vision" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/36/fc/16e433d4728761cb0efb7591a9c86c747a1e6587fdbc92cf43b0c975263b/macuitest-0.8.0.tar.gz", hash = "sha256:9cf1f6a0fb54978c7b63fed4d8fca738d114670bfc75d6bd1bd8f7f31e9cf90a", size = 85884, upload-time = "2026-10-02T21:36:43.395Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f6/70/1c430e78489ef78ce7c6a20dd566f9fe03b0d254be9fe10db016c538b2f6/macuitest-0.8.0-py3-none-any.whl", hash = "sha256:3abf8b7281fe7f3183cea39fab4d88747b7b0ec6b79d6dd9701029251b17a1ae", size = 109703, upload-time = "2026-10-02T21:36:41.924Z" },
 ]
 
 [[package]]
@@ -47,7 +51,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "macuitest", git = "https://github.com/andriykislitsyn/macuitest" }]
+requires-dist = [{ name = "macuitest", specifier = ">=0.8.0" }]
 
 [package.metadata.requires-dev]
 dev = [

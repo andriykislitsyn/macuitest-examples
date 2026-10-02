@@ -5,16 +5,13 @@ description = "Example test suites driving real macOS apps with macuitest"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.13"
-dependencies = ["macuitest"]
+dependencies = ["macuitest>=0.8.0"]
 
 [dependency-groups]
 dev = ["pytest", "ruff"]
 
 [tool.uv]
 package = false
-
-[tool.uv.sources]
-macuitest = { git = "https://github.com/andriykislitsyn/macuitest" }
 
 [tool.pytest.ini_options]
 addopts = "-ra"
