@@ -22,9 +22,9 @@ To run the suites, you need the following:
 - macOS 26 and [uv](https://docs.astral.sh/uv/).
 - Two permissions for the app you run the tests from, such as Terminal or your IDE. Grant them in **System Settings > Privacy & Security**:
   - **Accessibility**, to read and control other apps.
-  - **Screen & System Audio Recording**, to find elements by screenshot or by text. On macOS 14 and earlier, it's called **Screen Recording**.
+  - **Screen & System Audio Recording**, to find elements by screenshot or by text.
 
-If a permission is missing, every test skips and names the permission to grant.
+After you grant a permission, quit and reopen the app you run the tests from. macOS applies the grant only to a newly started app. Until then, every test skips and names the first missing permission.
 
 ## Run a suite
 
@@ -42,7 +42,7 @@ If a permission is missing, every test skips and names the permission to grant.
    uv run pytest calculator
    ```
 
-The suite launches the app, runs the tests, and quits the app.
+The suite launches the app, runs the tests, and quits the app. If the app is already open, the suite uses that window and quits the app at the end, so save your work in it first.
 
 ## How an app folder is organized
 
@@ -50,18 +50,21 @@ Each app folder follows the same layout:
 
 ```text
 calculator/
+  __init__.py              # Makes the folder a package, so app folders don't clash
   screens.py               # Screen classes: every element the tests use
-  screens/calculator/      # Screenshots for image() elements, one folder per screen
+  screens/calculator/      # Screenshots for image() elements, one folder per Screen class
   conftest.py              # Launches the app and resets it between tests
   test_screens.py          # Checks that every element resolves, without clicking
   test_*.py                # One file per element kind, plus an end-to-end test
 ```
 
-The tests never contain locators. They read elements from `screens.py`, so when the app changes, you update one file. For how `screens.py` is generated, see the app's own README.
+The tests never contain locators. They read elements from `screens.py`, so when the app changes, you update one file. To generate `screens.py` for an app, see [Calculator examples](calculator/README.md).
+
+To start a folder for your own app from a copy of `calculator/`, change the `from calculator.screens` imports to your folder's name. The screenshot folder follows the `Screen` class name in snake case, so `class TextEdit(Screen, ...)` reads its screenshots from `screens/text_edit/`.
 
 ## Continuous integration
 
-GitHub Actions checks style with ruff on every push. The tests themselves run only on your Mac, because GitHub's macOS runners can't grant the Accessibility and Screen Recording permissions.
+GitHub Actions checks style with ruff on every push to `main` and on every pull request. The tests themselves run only on your Mac, because GitHub's macOS runners can't grant the Accessibility and Screen Recording permissions.
 
 ## License
 

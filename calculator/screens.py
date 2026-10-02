@@ -20,6 +20,7 @@ def key(identifier: str) -> str:
 
 class Calculator(Screen, app="Calculator"):
     keypad = ax(identifier="CalculatorKeypadView")
+    input_view = ax(identifier="StandardInputView")
     # The display text has no identifier of its own. It sits inside the input view.
     display = ax(identifier="StandardInputView").child(role="AXStaticText")
     # The generated identifier encodes the current mode, so match the description instead.
@@ -61,8 +62,10 @@ class Calculator(Screen, app="Calculator"):
 
     # Vision reads "AC" but not single characters, so only multi-letter labels use text().
     all_clear_text = text("AC", within=keypad)
+    # A result to wait for, read by Vision. The input view leaves room around the digits.
+    result = text("42", within=input_view)
 
 
 def display_value() -> str:
     """Return the number on Calculator's display, without its left-to-right mark."""
-    return str(Calculator.display.value).lstrip("‎")
+    return str(Calculator.display.value).lstrip("\u200e")

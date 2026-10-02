@@ -2,11 +2,16 @@
 
 import pytest
 from macuitest.lib.core import wait_condition
+from macuitest.lib.elements.ui.monitor import monitor
 
 from calculator.screens import Calculator
 from calculator.screens import display_value
 
-pytestmark = pytest.mark.usefixtures("cleared")
+pytestmark = [
+    pytest.mark.usefixtures("cleared"),
+    # The multiply key is clicked by a screenshot captured on a 2x display.
+    pytest.mark.skipif(not monitor.is_retina, reason="key screenshots need a 2x main display"),
+]
 
 
 def test_calculate_then_clear_with_mixed_element_kinds():
