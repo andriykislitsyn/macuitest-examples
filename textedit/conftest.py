@@ -11,16 +11,10 @@ from textedit.screens import Fonts
 from textedit.screens import SaveSheet
 
 
-def bring_to_front(app: Application) -> None:
-    """Activate `app` and wait until it's frontmost, so hotkeys can't land in another app."""
-    app.activate()
-    if not wait_condition(lambda: app.is_frontmost, timeout=3):
-        pytest.fail("TextEdit didn't come to the front within 3 seconds")
-
-
 def close_fonts_panel(app: Application) -> None:
     """Close the Fonts panel if it's open, since Command-T toggles it."""
-    bring_to_front(app)
+    # activate() raises unless TextEdit comes to the front, so hotkeys can't land in another app.
+    app.activate()
     # The panel joins the accessibility tree a moment after TextEdit activates.
     if wait_condition(lambda: Fonts.search.is_visible, timeout=1):
         keyboard.hotkey("command", "t")
@@ -34,7 +28,6 @@ def textedit(permissions):
     app.launch()
     # The tests never type into it, so it closes and quits without a save prompt.
     document = as_wrapper.tell_app("TextEdit", "get name of (make new document)")
-    bring_to_front(app)
     close_fonts_panel(app)
     if not wait_condition(lambda: standard_window_frame("TextEdit"), timeout=5):
         pytest.fail("TextEdit's document window didn't appear. See textedit/README.md.")
@@ -46,7 +39,7 @@ def textedit(permissions):
 @pytest.fixture
 def save_sheet(textedit):
     """Open the Save sheet with Command-S, and cancel it if the test left it open."""
-    bring_to_front(textedit)
+    textedit.activate()
     keyboard.hotkey("command", "s")
     if not wait_condition(lambda: SaveSheet.cancel.is_visible, timeout=3):
         pytest.fail("Command-S didn't open the Save sheet within 3 seconds")
@@ -59,7 +52,7 @@ def save_sheet(textedit):
 @pytest.fixture
 def fonts_panel(textedit):
     """Open the Fonts panel with Command-T, and close it if the test left it open."""
-    bring_to_front(textedit)
+    textedit.activate()
     keyboard.hotkey("command", "t")
     if not wait_condition(lambda: Fonts.search.is_visible, timeout=3):
         pytest.fail("Command-T didn't open the Fonts panel within 3 seconds")
