@@ -7,6 +7,7 @@ from macuitest.lib.core import wait_condition
 from macuitest.lib.elements.controllers.keyboard_controller import keyboard
 from macuitest.lib.elements.locators import standard_window_frame
 
+from textedit.screens import Fonts
 from textedit.screens import SaveSheet
 
 
@@ -17,6 +18,15 @@ def bring_to_front(app: Application) -> None:
         pytest.fail("TextEdit didn't come to the front within 3 seconds")
 
 
+def close_fonts_panel(app: Application) -> None:
+    """Close the Fonts panel if it's open, since Command-T toggles it."""
+    bring_to_front(app)
+    # The panel joins the accessibility tree a moment after TextEdit activates.
+    if wait_condition(lambda: Fonts.search.is_visible, timeout=1):
+        keyboard.hotkey("command", "t")
+        Fonts.search.wait_vanish()
+
+
 @pytest.fixture(autouse=True, scope="session")
 def textedit(permissions):
     """Launch TextEdit with an empty document of its own, and quit it when the session ends."""
@@ -25,6 +35,7 @@ def textedit(permissions):
     # The tests never type into it, so it closes and quits without a save prompt.
     document = as_wrapper.tell_app("TextEdit", "get name of (make new document)")
     bring_to_front(app)
+    close_fonts_panel(app)
     if not wait_condition(lambda: standard_window_frame("TextEdit"), timeout=5):
         pytest.fail("TextEdit's document window didn't appear. See textedit/README.md.")
     yield app
@@ -43,3 +54,14 @@ def save_sheet(textedit):
     if SaveSheet.cancel.is_visible:
         SaveSheet.cancel.press()
         SaveSheet.cancel.wait_vanish()
+
+
+@pytest.fixture
+def fonts_panel(textedit):
+    """Open the Fonts panel with Command-T, and close it if the test left it open."""
+    bring_to_front(textedit)
+    keyboard.hotkey("command", "t")
+    if not wait_condition(lambda: Fonts.search.is_visible, timeout=3):
+        pytest.fail("Command-T didn't open the Fonts panel within 3 seconds")
+    yield
+    close_fonts_panel(textedit)
