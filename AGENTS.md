@@ -1,6 +1,6 @@
 # Agent notes for macuitest-examples
 
-These suites take over the user's mouse and keyboard and quit the apps they drive. Run a suite only when the user approves that run. These need no approval, since they only read: `uv run pytest calculator/test_screens.py`, `uv run python -m macuitest.locators tree <app>` without `--activate`, and `uv run python -m macuitest.locators check <app>/screens.py`. `tree` ships after macuitest 0.8.0, so it works once `uv.lock` picks up that release.
+These suites take over the user's mouse and keyboard and quit the apps they drive. Run a suite only when the user approves that run. These need no approval, since they only read: `uv run pytest calculator/test_screens.py`, `uv run python -m macuitest.locators tree <app>` without `--activate`, and `uv run python -m macuitest.locators check <app>/screens.py`.
 
 ## Commands
 
@@ -22,6 +22,7 @@ CI runs ruff only. GitHub's macOS runners can't grant Accessibility or Screen Re
 
 ## Rules for fixtures and tests
 
+- `is_visible` checks once. Wait with `wait_displayed()` or `wait_vanish()`, such as after a hotkey opens a sheet.
 - Call `Application.activate()` before every hotkey or typed input. It raises unless the app comes to the front, so keys can't land in another app, such as the user's editor.
 - Never type into or save the user's documents. Create your own, leave them empty, and close them with `saving no`.
 - A fixture closes whatever it opened, such as a sheet or panel, even when the test fails. Check before toggling: Command-T on an open Fonts panel closes it.

@@ -13,7 +13,7 @@ def test_save_sheet_suggests_the_document_name():
 
 
 def test_text_finds_a_sheet_label_in_the_document_window():
-    assert SaveSheet.save_as_label.is_visible
+    assert SaveSheet.save_as_label.wait_displayed()
 
 
 def test_cancel_closes_the_sheet_without_saving():

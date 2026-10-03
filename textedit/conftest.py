@@ -16,7 +16,7 @@ def close_fonts_panel(app: Application) -> None:
     # activate() raises unless TextEdit comes to the front, so hotkeys can't land in another app.
     app.activate()
     # The panel joins the accessibility tree a moment after TextEdit activates.
-    if wait_condition(lambda: Fonts.search.is_visible, timeout=1):
+    if Fonts.search.wait_displayed(timeout=1):
         keyboard.hotkey("command", "t")
         Fonts.search.wait_vanish()
 
@@ -41,7 +41,7 @@ def save_sheet(textedit):
     """Open the Save sheet with Command-S, and cancel it if the test left it open."""
     textedit.activate()
     keyboard.hotkey("command", "s")
-    if not wait_condition(lambda: SaveSheet.cancel.is_visible, timeout=3):
+    if not SaveSheet.cancel.wait_displayed(timeout=3):
         pytest.fail("Command-S didn't open the Save sheet within 3 seconds")
     yield
     if SaveSheet.cancel.is_visible:
@@ -54,7 +54,7 @@ def fonts_panel(textedit):
     """Open the Fonts panel with Command-T, and close it if the test left it open."""
     textedit.activate()
     keyboard.hotkey("command", "t")
-    if not wait_condition(lambda: Fonts.search.is_visible, timeout=3):
+    if not Fonts.search.wait_displayed(timeout=3):
         pytest.fail("Command-T didn't open the Fonts panel within 3 seconds")
     yield
     close_fonts_panel(textedit)
