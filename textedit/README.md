@@ -33,21 +33,21 @@ Each test file shows one kind of window:
 
 ## Generate the screens
 
-`capture` writes one module per run, so capture each window into a scratch file, then merge the results into `screens.py` by hand:
+Capture both screens into one scratch module, then copy what you need into `screens.py`:
 
 1. Press Command-S in an empty TextEdit document to open the Save sheet, then capture the document window:
 
    ```bash
-   uv run python -m macuitest.locators capture TextEdit --out /tmp/save_sheet.py --role AXButton --role AXTextField --role AXStaticText
+   uv run macuitest capture TextEdit --out /tmp/textedit.py --role AXButton --role AXTextField --role AXStaticText
    ```
 
-2. Cancel the sheet, press Command-T to open the Fonts panel, then capture the panel:
+2. Cancel the sheet, press Command-T to open the Fonts panel, then add the panel's screen to the same module:
 
    ```bash
-   uv run python -m macuitest.locators capture TextEdit --window-title Fonts --out /tmp/fonts.py
+   uv run macuitest capture TextEdit --window-title Fonts --out /tmp/textedit.py --append
    ```
 
-3. Copy the entries you need into `screens.py`. The Fonts capture generates an `image()` entry for every font row. Those rows change with the selected font, so `screens.py` keeps only the controls with stable identifiers or descriptions.
+3. Copy the entries you need into `screens.py`. The Fonts panel's font list changes with the selected font, so `capture` skips its rows and notes how many in a comment.
 
 ## TextEdit quirks
 

@@ -43,7 +43,7 @@ To generate a module like `screens.py` for your own app, follow these steps:
 2. Capture the window. Replace `Your App` with the app's name as the Dock shows it, and `your_app` with your folder:
 
    ```bash
-   uv run python -m macuitest.locators capture "Your App" --out your_app/screens.py --role AXButton --role AXGroup --role AXScrollArea
+   uv run macuitest capture "Your App" --out your_app/screens.py --role AXButton --role AXGroup --role AXScrollArea
    ```
 
    The command writes a `Screen` class with an `ax()` entry for each element it can identify, else an `image()` entry, and a screenshot of each element in `your_app/screens/<screen>/`. Leave out `--role` to capture every kind of element.
@@ -57,7 +57,7 @@ To generate a module like `screens.py` for your own app, follow these steps:
 4. Check that every declared screenshot exists and that no screenshot is left over:
 
    ```bash
-   uv run python -m macuitest.locators check your_app/screens.py
+   uv run macuitest check your_app/screens.py
    ```
 
 ## Refresh after a Calculator update
@@ -68,7 +68,7 @@ When a macOS update changes Calculator, refresh the module:
 2. Capture into a scratch file, so that you keep your edits. `--force` replaces the scratch files from an earlier refresh:
 
    ```bash
-   uv run python -m macuitest.locators capture Calculator --out /tmp/calculator.py --role AXButton --role AXGroup --role AXScrollArea --force
+   uv run macuitest capture Calculator --out /tmp/calculator.py --role AXButton --role AXGroup --role AXScrollArea --force
    ```
 
    The screenshots land in `/tmp/calculator/calculator/`.
