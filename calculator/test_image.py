@@ -2,16 +2,11 @@
 
 import pytest
 from macuitest.lib.core import wait_condition
-from macuitest.lib.elements.ui.monitor import monitor
 
 from calculator.screens import Calculator
 from calculator.screens import display_value
 
-pytestmark = [
-    pytest.mark.usefixtures("cleared"),
-    # The key screenshots were captured on a 2x display.
-    pytest.mark.skipif(not monitor.is_retina, reason="key screenshots need a 2x main display"),
-]
+pytestmark = pytest.mark.usefixtures("cleared")
 
 
 def test_multiply_with_screenshots():

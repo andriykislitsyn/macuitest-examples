@@ -7,7 +7,6 @@ import pytest
 from macuitest.lib.elements.locators import AppleScriptLocator
 from macuitest.lib.elements.locators import AXLocator
 from macuitest.lib.elements.locators import ImageLocator
-from macuitest.lib.elements.ui.monitor import monitor
 
 from calculator.screens import Calculator
 from calculator.screens import display_value
@@ -27,7 +26,6 @@ def test_applescript_elements_exist(name):
     assert getattr(Calculator, name).is_visible
 
 
-@pytest.mark.skipif(not monitor.is_retina, reason="key screenshots need a 2x main display")
 @pytest.mark.parametrize("name", declared(ImageLocator))
 def test_screenshots_match_on_screen(name):
     assert getattr(Calculator, name).wait_displayed()

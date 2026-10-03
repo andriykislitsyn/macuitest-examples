@@ -22,7 +22,7 @@ wheels = [
 
 [[package]]
 name = "macuitest"
-version = "0.9.0"
+version = "0.9.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "opencv-python" },
@@ -31,9 +31,9 @@ dependencies = [
     { name = "pyobjc-framework-quartz" },
     { name = "pyobjc-framework-vision" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/69/51/d102ea8e85a9740ff2d2b80380f290fa61b29610904bfff8128e90b30f88/macuitest-0.9.0.tar.gz", hash = "sha256:fb753b2c94ee524a24123dea8bbde4fe65869da5c544a8450bfcb82792dc894b", size = 87862, upload-time = "2026-10-03T07:21:20.784Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d9/d7/19af21cc2035e02a717e7dd230198ee01806f1c797e9bb3e3f8eddfc5de0/macuitest-0.9.1.tar.gz", hash = "sha256:eb0e0cb74c94bf8406b3e5dd5ade37a9be7ba661e0e037ffc2dc1dd9fa75a756", size = 90508, upload-time = "2026-10-03T15:28:18.976Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/34/e5/8302c7e04e1bcd9c474180cca4cd31379eec4d47e059f00ac013c31fe323/macuitest-0.9.0-py3-none-any.whl", hash = "sha256:0ccaf6a722795680a3a3cc16fd757f264c61efca981f3e4e2f17471ce3aa9ccf", size = 112621, upload-time = "2026-10-03T07:21:19.445Z" },
+    { url = "https://files.pythonhosted.org/packages/cf/41/5ba0d77c2e7c88711ec6fec1081a9dbe8bf7f1fc3d8daf478a44e9fd25f4/macuitest-0.9.1-py3-none-any.whl", hash = "sha256:28263a6d32663dd4e31cea639a92dfa0a854b94f06e5e8110edb265b97e7f860", size = 115305, upload-time = "2026-10-03T15:28:17.695Z" },
 ]
 
 [[package]]
@@ -51,7 +51,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "macuitest", specifier = ">=0.9.0" }]
+requires-dist = [{ name = "macuitest", specifier = ">=0.9.1" }]
 
 [package.metadata.requires-dev]
 dev = [
