@@ -8,7 +8,6 @@ The suite expects the following setup:
 
 - macOS 26. Calculator's accessibility tree can change with any macOS release.
 - Calculator in Basic mode. If it's in another mode, the input tests skip and ask you to switch with **View > Basic**.
-- A 2x (Retina) main display for the screenshot elements. The screenshots in this folder are 2x captures, so `test_image.py` and `test_end_to_end.py` skip on a 1x main display.
 
 ## Run the suite
 
